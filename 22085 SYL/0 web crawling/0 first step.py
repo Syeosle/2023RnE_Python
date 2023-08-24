@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 import sys
 import pickle
+import time
 '''
 page = requests.get('https://music.bugs.co.kr/chart')
 soup = bs(page.text, 'html.parser')
@@ -23,7 +24,8 @@ for i in elements:
     print(ids[-1])
     # song ids
 
-lyricPage = requests.get(f'https://music.bugs.co.kr/track/{ids[0]}')
-lyricSoup = bs(lyricPage.text, 'html.parser')
-
-print(str(lyricSoup.select('xmp'))[6:-7])
+for _ in range(len(ids)):
+    lyricPage = requests.get(f'https://music.bugs.co.kr/track/{ids[0]}')
+    lyricSoup = bs(lyricPage.text, 'html.parser')
+    print(str(lyricSoup.select('xmp'))[6:-7])
+    time.sleep(2)
